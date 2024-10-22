@@ -1,172 +1,334 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>Basic Snake HTML Game</title>
-  <meta charset="UTF-8">
-  <style>
-  html, body {
-    height: 100%;
-    margin: 0;
-  }
-
-  body {
-    background: black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  canvas {
-    border: 1px solid white;
-  }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content=
+"width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href=
+"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity=
+"sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Amazon Clone</title>
 </head>
+
 <body>
-<canvas width="400" height="400" id="game"></canvas>
-<script>
-var canvas = document.getElementById('game');
-var context = canvas.getContext('2d');
+    <header>
+        <nav>
+            <div class="nav-left">
+                <div class="nav-logo">
+                    <img src=
+"https://media.geeksforgeeks.org/wp-content/uploads/20240326183545/amazon.png">
+                </div>
+                <div class="location">
+                    <p class="top-text">Deliver to</p>
+                    <div class="location-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <p class="bottom-text">India</p>
+                    </div>
+                </div>
+            </div>
 
-// the canvas width & height, snake x & y, and the apple x & y, all need to be a multiples of the grid size in order for collision detection to work
-// (e.g. 16 * 25 = 400)
-var grid = 16;
-var count = 0;
+            <div class="nav-center">
+                <select class="search-dropdown">
+                    <option>All</option>
+                    <option>All Departments</option>
+                    <option>Arts & Crafts</option>
+                </select>
+                <input type="text" placeholder="Search Amazon" 
+                    class="search-box">
+                <div class="search-icon">
+                    <i class="fa-solid fa-magnifying-glass" 
+                        style="color: #28416c;">
+                    </i>
+                </div>
+            </div>
 
-var snake = {
-  x: 160,
-  y: 160,
+            <div class="nav-right">
+                <div class="language-option">
+                    <div class="flag">
+                        <i class="fa-regular fa-flag"></i>
+                    </div>
+                    <select class="select-language">
+                        <option value="lan">EN</option>
+                        <option value="lan">ES</option>
+                        <option value="lan">AR</option>
+                    </select>
+                </div>
 
-  // snake velocity. moves one grid length every frame in either the x or y direction
-  dx: grid,
-  dy: 0,
+                <div class="account-option">
+                    <p class="top-text">
+                        Hello, sign in
+                    </p>
+                    <select class="select-account">
+                        <option value="Account">
+                            Account & Lists
+                        </option>
+                        <option value="Account">
+                            Account & Lists
+                        </option>
+                        <option value="Account">
+                            Account & Lists
+                        </option>
+                    </select>
+                </div>
 
-  // keep track of all grids the snake body occupies
-  cells: [],
+                <div class="order-option">
+                    <p class="top-text">
+                        Returns
+                    </p>
+                    <p class="bottom-text">
+                        & Orders
+                    </p>
+                </div>
 
-  // length of the snake. grows when eating an apple
-  maxCells: 4
-};
-var apple = {
-  x: 320,
-  y: 320
-};
+                <div class="cart-option">
+                    <div class="cart-logo">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </div>
+                    Cart
+                </div>
+            </div>
+        </nav>
 
-// get random whole numbers in a specific range
-// @see https://stackoverflow.com/a/1527820/2124254
-function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
-}
+        <div class="nav-options">
+            <div class="all-logo">
+                <i class="fa-solid fa-bars"></i>
+                <p class="list">All</p>
+            </div>
 
-// game loop
-function loop() {
-  requestAnimationFrame(loop);
+            <div class="options">
+                <p>Today's Deals</p>
+                <p>Customer Service</p>
+                <p>Registry</p>
+                <p>Gift Cards</p>
+                <p> Sell</p>
+            </div>
+        </div>
+    </header>
 
-  // slow game loop to 15 fps instead of 60 (60/15 = 4)
-  if (++count < 4) {
-    return;
-  }
+    <main>
+        <div class="carousel">
+            <div class="slides-container">
+                <div id="slide1" class="slide">
+                    <div class="content">
+                        <img src=
+"https://media.geeksforgeeks.org/wp-content/uploads/20240326122916/image11.jpg">
+                    </div>
+                    <a href="#slide3" class="prev arrow">
+                        <i class="fa-solid fa-chevron-left" 
+                            style="color: #ffffff;">
+                        </i>
+                    </a>
+                    <a href="#slide2" class="next arrow">
+                        <i class="fa-solid fa-chevron-right" 
+                            style="color: #ffffff;">
+                        </i>
+                    </a>
+                </div>
+                <div id="slide2" class="slide">
+                    <div class="content">
+                        <img src=
+"https://media.geeksforgeeks.org/wp-content/uploads/20240326122915/image8.jpg">
+                    </div>
+                    <div class="arrows"></div>
+                    <a href="#slide1" class="prev arrow">
+                        <i class="fa-solid fa-chevron-left" 
+                            style="color: #ffffff;">
+                        </i>
+                    </a>
+                    <a href="#slide3" class="next arrow">
+                        <i class="fa-solid fa-chevron-right" 
+                            style="color: #ffffff;">
+                        </i>
+                    </a>
+                </div>
+                <div id="slide3" class="slide">
+                    <div class="content">
+                        <img src=
+"https://media.geeksforgeeks.org/wp-content/uploads/20240326121955/image.jpg">
+                    </div>
+                    <div class="arrows"></div>
+                    <a href="#slide2" class="prev arrow">
+                        <i class="fa-solid fa-chevron-left" 
+                            style="color: #ffffff;">
+                        </i>
+                    </a>
+                    <a href="#slide1" class="next arrow">
+                        <i class="fa-solid fa-chevron-right" 
+                            style="color: #ffffff;">
+                        </i>
+                    </a>
+                </div>
+            </div>
+            <div class="text">
+                <p>
+                    You are on amazon.com. You can also shop 
+                    on Amazon India for millions of products 
+                    with fast local delivery. 
+                    <a href="#"> 
+                        Click here to go to amazon.in
+                    </a>
+                </p>
+            </div>
+        </div>
 
-  count = 0;
-  context.clearRect(0,0,canvas.width,canvas.height);
+        <div class="items-container">
+            <div class="item-card">
+                <h2>Gaming accessories</h2>
+                <img src=
+"https://media.geeksforgeeks.org/wp-content/uploads/20240326122918/image14.jpg">
+                <p>
+                    <a href="#">See more</a>
+                </p>
+            </div>
+            <div class="item-card">
+                <h2>Deal in PCs</h2>
+                <img src=
+"https://media.geeksforgeeks.org/wp-content/uploads/20240326122917/image12.jpg">
+                <p>
+                    <a href="#">See more</a>
+                </p>
+            </div>
+            <div class="item-card">
+                <h2>Amazon Gadget Store</h2>
+                <img src=
+"https://media.geeksforgeeks.org/wp-content/uploads/20240326122918/image15.jpg">
+                <p>
+                    <a href="#">See more</a>
+                </p>
+            </div>
+            <div class="item-card">
+                <h2>Handpicked music</h2>
+                <img src=
+"https://media.geeksforgeeks.org/wp-content/uploads/20240326122916/image11.jpg">
+                <p>
+                    <a href="#">See more</a>
+                </p>
+            </div>
+            <div class="item-card">
+                <h2>Fill your Easter basket</h2>
+                <img src=
+"https://media.geeksforgeeks.org/wp-content/uploads/20240326121956/image3.jpg">
+                <p>
+                    <a href="#">See more</a>
+                </p>
+            </div>
+            <div class="item-card">
+                <h2>Top Deal</h2>
+                <img src=
+"https://media.geeksforgeeks.org/wp-content/uploads/20240326122915/image8.jpg">
+                <p>
+                    <a href="#">See more</a>
+                </p>
+            </div>
+            <div class="item-card">
+                <h2>Shop deals in Fashion</h2>
+                <img src=
+"https://media.geeksforgeeks.org/wp-content/uploads/20240326122915/image9.jpg">
+                <p>
+                    <a href="#">See more</a>
+                </p>
+            </div>
+            <div class="item-card">
+                <h2>Gaming merchandise</h2>
+                <img src=
+"https://media.geeksforgeeks.org/wp-content/uploads/20240326122917/image13.jpg">
+                <p>
+                    <a href="#">See more</a>
+                </p>
+            </div>
+            <div class="item-card">
+                <h2>Movies</h2>
+                <img src=
+"https://media.geeksforgeeks.org/wp-content/uploads/20240326121955/image.jpg">
+                <p>
+                    <a href="#">See more</a>
+                </p>
+            </div>
 
-  // move snake by it's velocity
-  snake.x += snake.dx;
-  snake.y += snake.dy;
+        </div>
+    </main>
 
-  // wrap snake position horizontally on edge of screen
-  if (snake.x < 0) {
-    snake.x = canvas.width - grid;
-  }
-  else if (snake.x >= canvas.width) {
-    snake.x = 0;
-  }
+    <footer>
+        <a href="#" class="back-option">
+            Back to top
+        </a>
 
-  // wrap snake position vertically on edge of screen
-  if (snake.y < 0) {
-    snake.y = canvas.height - grid;
-  }
-  else if (snake.y >= canvas.height) {
-    snake.y = 0;
-  }
+        <div class="footer-links">
+            <ul>
+                <p>Get to Know Us</p>
+                <a>Careers</a>
+                <a>Blog</a>
+                <a>About Amazon</a>
+                <a>Investor Relations</a>
+                <a>Amazon Devices</a>
+                <a>Amazon Science</a>
+            </ul>
+            <ul>
+                <p>Make Money with Us</p>
+                <a>Sell products on Amazon</a>
+                <a>Sell on Amazon Business</a>
+                <a>Sell apps on Amazon</a>
+                <a>Become an Affiliate</a>
+                <a>Self-Publish with Us</a>
+                <a>Host an Amazon Hub</a>
+                <a>›See More Make Money with Us</a>
+            </ul>
+            <ul>
+                <p>Amazon Payment Products</p>
+                <a>Amazon Business Card</a>
+                <a>Shop with Points</a>
+                <a>Reload Your Balance</a>
+                <a>Amazon Currency Converter</a>
+            </ul>
+            <ul>
+                <p>Let Us Help You</p>
+                <a>Amazon and COVID-19</a>
+                <a>Your Account</a>
+                <a>Your Orders</a>
+                <a>Shipping Rates & Policies</a>
+                <a>Returns & Replacements</a>
+                <a>Manage Your Content and Devices</a>
+                <a>Amazon Assistant</a>
+                <a>Help</a>
+            </ul>
+        </div>
+        <div class="country-info">
+            <div class="logo">
+                <img src=
+"https://media.geeksforgeeks.org/wp-content/uploads/20240326183545/amazon.png">
+            </div>
+            <div class="options">
+                <select>
+                    <option value="En">
+                        English
+                    </option>
+                </select>
+                <select>
+                    <option value="1">
+                        $ USD - U.S. Dollar
+                    </option>
+                </select>
 
-  // keep track of where snake has been. front of the array is always the head
-  snake.cells.unshift({x: snake.x, y: snake.y});
-
-  // remove cells as we move away from them
-  if (snake.cells.length > snake.maxCells) {
-    snake.cells.pop();
-  }
-
-  // draw apple
-  context.fillStyle = 'red';
-  context.fillRect(apple.x, apple.y, grid-1, grid-1);
-
-  // draw snake one cell at a time
-  context.fillStyle = 'green';
-  snake.cells.forEach(function(cell, index) {
-
-    // drawing 1 px smaller than the grid creates a grid effect in the snake body so you can see how long it is
-    context.fillRect(cell.x, cell.y, grid-1, grid-1);
-
-    // snake ate apple
-    if (cell.x === apple.x && cell.y === apple.y) {
-      snake.maxCells++;
-
-      // canvas is 400x400 which is 25x25 grids
-      apple.x = getRandomInt(0, 25) * grid;
-      apple.y = getRandomInt(0, 25) * grid;
-    }
-
-    // check collision with all cells after this one (modified bubble sort)
-    for (var i = index + 1; i < snake.cells.length; i++) {
-
-      // snake occupies same space as a body part. reset game
-      if (cell.x === snake.cells[i].x && cell.y === snake.cells[i].y) {
-        snake.x = 160;
-        snake.y = 160;
-        snake.cells = [];
-        snake.maxCells = 4;
-        snake.dx = grid;
-        snake.dy = 0;
-
-        apple.x = getRandomInt(0, 25) * grid;
-        apple.y = getRandomInt(0, 25) * grid;
-      }
-    }
-  });
-}
-
-// listen to keyboard events to move the snake
-document.addEventListener('keydown', function(e) {
-  // prevent snake from backtracking on itself by checking that it's
-  // not already moving on the same axis (pressing left while moving
-  // left won't do anything, and pressing right while moving left
-  // shouldn't let you collide with your own body)
-
-  // left arrow key
-  if (e.which === 37 && snake.dx === 0) {
-    snake.dx = -grid;
-    snake.dy = 0;
-  }
-  // up arrow key
-  else if (e.which === 38 && snake.dy === 0) {
-    snake.dy = -grid;
-    snake.dx = 0;
-  }
-  // right arrow key
-  else if (e.which === 39 && snake.dx === 0) {
-    snake.dx = grid;
-    snake.dy = 0;
-  }
-  // down arrow key
-  else if (e.which === 40 && snake.dy === 0) {
-    snake.dy = grid;
-    snake.dx = 0;
-  }
-});
-
-// start the game
-requestAnimationFrame(loop);
-</script>
+                <select>
+                    <option value="4"> 
+                        United states
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="policies">
+            <div class="pages">
+                <a href="#">Conditions of Use</a>
+                <a href="#">Privacy Notice</a>
+                <a href="#">Your Ads Privacy Choices</a>
+            </div>
+            © 1996-2023, Amazon.com, Inc. or its affiliates
+        </div>
+    </footer>
 </body>
+
 </html>
