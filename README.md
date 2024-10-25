@@ -1,3 +1,1 @@
-<a href="https://assets.onecompiler.app/42ryuv2wx/42vveyt6v/IMG_20241022_212118_178.jpg">click</a>
-
-          
+  <img src="https://assets.onecompiler.app/42ryuv2wx/42w5qzge2/1000000233.jpg" alt="" />
